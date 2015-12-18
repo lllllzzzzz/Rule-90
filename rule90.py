@@ -6,18 +6,21 @@ def rule90(config, steps):
     """Print N steps of Rule 90 with initial cell configuration."""
    
     for step in xrange(0, steps):
-        next_config = ""
         print config
  
-        for i in xrange(0, len(config)):
+        next_config = ""
+        cells = [int(i) for i in config]
+ 
+        for i in xrange(0, len(cells)):
             if len(config) == 1:
                 next_config += "0"
             elif i == 0:
-                next_config += str(0 ^ int(config[i + 1]))
-            elif i == len(config) - 1:
-                next_config += str(int(config[i - 1]) ^ 0)
+                next_config += str(0 ^ int(cells[i + 1]))
+            elif i == len(cells) - 1:
+                next_config += str(int(cells[i - 1]) ^ 0)
             else:
-                next_config += str(int(config[i - 1]) ^ int(config[i + 1]))
+                next_config += str(cells[i - 1] ^ cells[i + 1])
+ 
         config = next_config
  
 def main():
