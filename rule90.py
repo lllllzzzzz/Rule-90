@@ -2,33 +2,26 @@
  
 import sys
  
-def rule90(config, steps):
-    """Print N steps of Rule 90 with initial cell configuration."""
+def step(gen):
+    """Return the next step of Rule 90 given a cell configuration."""
+ 
+    return [gen[i - 1] ^ gen[i + 1] for i in xrange(1, len(gen) - 1)]
+ 
+def rule90(gen, steps):
+    """Print N generations of Rule 90 with initial cell configuration."""
    
-    for step in xrange(0, steps):
-        print config
- 
-        next_config = ""
-        cells = [int(i) for i in config]
- 
-        for i in xrange(0, len(cells)):
-            if len(config) == 1:
-                next_config += "0"
-            elif i == 0:
-                next_config += str(0 ^ int(cells[i + 1]))
-            elif i == len(cells) - 1:
-                next_config += str(int(cells[i - 1]) ^ 0)
-            else:
-                next_config += str(cells[i - 1] ^ cells[i + 1])
- 
-        config = next_config
+    for i in xrange(0, steps):
+        print "".join([str(i) for i in gen[1:-1]])
+        gen = [0] + step(gen) + [0]
  
 def main():
     if len(sys.argv) != 3 or not (sys.argv[1] + sys.argv[2]).isdigit():
         print "Usage:", sys.argv[0], "[configuration] [steps]"
-        sys.exit(0)
+        sys.exit(-1)
  
-    rule90(sys.argv[1], int(sys.argv[2]))
+    init_gen = [int(i) for i in sys.argv[1]]
+    steps = int(sys.argv[2])
+    rule90([0] + init_gen + [0], steps)
  
 if __name__ == "__main__":
     main()
