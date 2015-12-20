@@ -33,10 +33,8 @@ def main():
     if len(sys.argv) != 3 or not (sys.argv[1] + sys.argv[2]).isdigit():
         print "Usage:", sys.argv[0], "[width] [steps]"
         sys.exit(0)
- 
-    width = int(sys.argv[1])
-    steps = int(sys.argv[2])
-    sierpinski(width, steps)
+        
+    sierpinski(int(sys.argv[1]), int(sys.argv[2]))
  
 if __name__ == "__main__":
     main()
